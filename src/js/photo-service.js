@@ -1,7 +1,7 @@
 import axios from 'axios';
 import URL_CONFIG from './constants';
 
-export default class PhotoService {
+class PhotoService {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
@@ -44,3 +44,5 @@ export default class PhotoService {
     this.searchQuery = newQuery;
   }
 }
+
+export default new PhotoService();
