@@ -12,11 +12,12 @@ let lightbox = new SimpleLightbox('.gallery a', {
 });
 
 import { loadMoreButton } from './js/load-button';
-import refs from './js/get-refs';
+import getRefs from './js/get-refs';
 import PhotoService from './js/photo-service';
 import renderPhotoCards from './js/render-cards';
 
 const photoService = new PhotoService();
+const refs = getRefs();
 
 const fetchCards = () => {
   console.log(`photoService.query: ${photoService.query}`);

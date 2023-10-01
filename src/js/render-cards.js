@@ -1,9 +1,11 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import initializePhotoCard from './templates';
-import refs from './get-refs';
+import getRefs from './get-refs';
 import { loadMoreButton } from './load-button';
 import smoothScroll from './scroll';
+
+const refs = getRefs();
 
 export default renderPhotoCards = ({
   dataHits,
