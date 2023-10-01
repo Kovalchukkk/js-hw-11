@@ -11,7 +11,44 @@ let lightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
 
-import photoService from './js/photo-service';
-import { loadMoreButton, searchQueryButton } from './js/load-more-button';
-import initializePhotoCard from './js/templates';
+import { loadMoreButton } from './js/load-button';
 import refs from './js/get-refs';
+import PhotoService from './js/photo-service';
+import renderPhotoCards from './js/render-cards';
+
+const photoService = new PhotoService();
+
+const fetchCards = () => {
+  console.log(`photoService.query: ${photoService.query}`);
+  photoService
+    .fetchCards()
+    .then(cards => {
+      // cards.dataHits;
+      // cards.totalHits;
+      // cards.currentPage;
+      // TODO: Call render function
+
+      renderPhotoCards(cards);
+      lightbox.refresh();
+    })
+    .catch(() => Notify.failure('Sorry, some error is occured'))
+    .finally(() => console.log(`fetch done`));
+};
+
+const onSearch = e => {
+  e.preventDefault();
+  const searchQuery = e.currentTarget.elements.searchQuery.value;
+
+  if (searchQuery) {
+    console.log(`searchQuery: ${searchQuery}`);
+    photoService.query = searchQuery;
+    photoService.resetPage();
+    refs.cardContainer.innerHTML = '';
+    fetchCards();
+    return;
+  }
+  Notify.info(`Please enter a search query`);
+};
+
+refs.form.addEventListener('submit', onSearch);
+loadMoreButton.refs.button.addEventListener('click', fetchCards);

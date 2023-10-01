@@ -1,7 +1,7 @@
 import axios from 'axios';
 import URL_CONFIG from './constants';
 
-class PhotoService {
+export default class PhotoService {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
@@ -23,6 +23,7 @@ class PhotoService {
       this.incrementPage();
 
       const currentPage = this.page - 1;
+      console.log(`currentPage: ${currentPage}`);
       const dataHits = response.data.hits;
       const totalHits = response.data.totalHits;
 
@@ -44,5 +45,3 @@ class PhotoService {
     this.searchQuery = newQuery;
   }
 }
-
-export default new PhotoService();
